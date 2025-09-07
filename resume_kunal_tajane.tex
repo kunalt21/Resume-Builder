@@ -1,0 +1,473 @@
+\documentclass[10pt, letterpaper]{article}
+
+% Packages:
+\usepackage[
+    ignoreheadfoot, % set margins without considering header and footer
+    top=2 cm, % seperation between body and page edge from the top
+    bottom=2 cm, % seperation between body and page edge from the bottom
+    left=2 cm, % seperation between body and page edge from the left
+    right=2 cm, % seperation between body and page edge from the right
+    footskip=1.0 cm, % seperation between body and footer
+    % showframe % for debugging 
+]{geometry} % for adjusting page geometry
+\usepackage{titlesec} % for customizing section titles
+\usepackage{tabularx} % for making tables with fixed width columns
+\usepackage{array} % tabularx requires this
+\usepackage[dvipsnames]{xcolor} % for coloring text
+\definecolor{primaryColor}{RGB}{0, 0, 0} % define primary color
+\usepackage{enumitem} % for customizing lists
+\usepackage{fontawesome5} % for using icons
+\usepackage{amsmath} % for math
+\usepackage[
+    pdftitle={Kunal Tajane CV},
+    pdfauthor={Kunal Tajane},
+    pdfcreator={LaTeX with RenderCV},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref} % for links, metadata and bookmarks
+\usepackage[pscoord]{eso-pic} % for floating text on the page
+\usepackage{calc} % for calculating lengths
+\usepackage{bookmark} % for bookmarks
+\usepackage{lastpage} % for getting the total number of pages
+\usepackage{changepage} % for one column entries (adjustwidth environment)
+\usepackage{paracol} % for two and three column entries
+\usepackage{ifthen} % for conditional statements
+\usepackage{needspace} % for avoiding page brake right after the section title
+\usepackage{iftex} % check if engine is pdflatex, xetex or luatex
+
+% Ensure that generate pdf is machine readable/ATS parsable:
+\ifPDFTeX
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+    \usepackage{lmodern}
+\fi
+
+\usepackage{charter}
+
+% Some settings:
+\raggedright
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt} % remove space before adjustwidth environment
+\pagestyle{empty} % no header or footer
+\setcounter{secnumdepth}{0} % no section numbering
+\setlength{\parindent}{0pt} % no indentation
+\setlength{\topskip}{0pt} % no top skip
+\setlength{\columnsep}{0.15cm} % set column seperation
+\pagenumbering{gobble} % no page numbering
+
+\titleformat{\section}{\needspace{4\baselineskip}\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule]
+
+\titlespacing{\section}{
+    % left space:
+    -1pt
+}{
+    % top space:
+    0.3 cm
+}{
+    % bottom space:
+    0.2 cm
+} % section title spacing
+
+\renewcommand\labelitemi{$\vcenter{\hbox{\small$\bullet$}}$} % custom bullet points
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=0 cm + 10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights
+
+
+\newenvironment{highlightsforbulletentries}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights for bullet entries
+
+\newenvironment{onecolentry}{
+    \begin{adjustwidth}{
+        0 cm + 0.00001 cm
+    }{
+        0 cm + 0.00001 cm
+    }
+}{
+    \end{adjustwidth}
+} % new environment for one column entries
+
+\newenvironment{twocolentry}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 4.5 cm}
+    \begin{paracol}{2}
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+} % new environment for two column entries
+
+\newenvironment{threecolentry}[3][]{
+    \onecolentry
+    \def\thirdColumn{#3}
+    \setcolumnwidth{, \fill, 4.5 cm}
+    \begin{paracol}{3}
+    {\raggedright #2} \switchcolumn
+}{
+    \switchcolumn \raggedleft \thirdColumn
+    \end{paracol}
+    \endonecolentry
+} % new environment for three column entries
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\linespread{1.5}
+}{
+    \par\kern\topsep
+} % new environment for the header
+
+\newcommand{\placelastupdatedtext}{% \placetextbox{<horizontal pos>}{<vertical pos>}{<stuff>}
+  \AddToShipoutPictureFG*{% Add <stuff> to current page foreground
+    \put(
+        \LenToUnit{\paperwidth-2 cm-0 cm+0.05cm},
+        \LenToUnit{\paperheight-1.0 cm}
+    ){\vtop{{\null}\makebox[0pt][c]{
+        \small\color{gray}\textit{Last updated in September 2024}\hspace{\widthof{Last updated in September 2024}}
+    }}}%
+  }%
+}%
+
+% save the original href command in a new command:
+\let\hrefWithoutArrow\href
+
+% new command for external links:
+
+
+\begin{document}
+    \newcommand{\AND}{\unskip
+        \cleaders\copy\ANDbox\hskip\wd\ANDbox
+        \ignorespaces
+    }
+    \newsavebox\ANDbox
+    \sbox\ANDbox{$|$}
+
+    \begin{header}
+        \fontsize{25 pt}{25 pt}\selectfont Kunal Tajane
+
+        \vspace{5 pt}
+
+        \normalsize
+        \mbox{+91-9028666798}%
+        \kern 5.0 pt%
+        \AND%
+        \kern 5.0 pt%
+        \mbox{\hrefWithoutArrow{mailto:kdtajane@gmail.com}{kdtajane@gmail.com}}%
+        \kern 5.0 pt%
+        \AND%
+        \kern 5.0 pt%
+        \mbox{\hrefWithoutArrow{https://linkedin.com/in/kunaltajane}{linkedin.com/in/kunaltajane}}%
+        \kern 5.0 pt%
+    \end{header}
+
+    \vspace{5 pt - 0.3 cm}
+
+
+\noindent\rule{\linewidth}{0.5pt}
+        % \vspace{0.5 cm}
+
+
+        
+        \begin{onecolentry}
+Experienced data and artificial intelligence professional with 7+ years of hands-on experience in designing, building, and deploying scalable data solutions. Passionate about leveraging technology to drive innovation and solve complex problems, I combine a strong technical foundation with a deep interest in finance and emerging technologies.
+        \end{onecolentry}
+
+        \vspace{0.1 cm}
+
+
+
+    
+    \section{\textbf{Core Competencies / Skill Set}}
+
+    \begin{onecolentry}
+Artificial Intelligence, Machine Learning, Deep Learning, Statistical Learning, Data Mining, Predictive Modelling, NLP, Time Series, A/B Testing, Platform Monitoring, IIoT \& Analytics, Python, SQL, Power BI, Pandas, NumPy, Scikit-Learn, TensorFlow, PyTorch, Matplotlib, Seaborn, Hadoop, PySpark, Hive, Advance Excel, ETL, Data Warehousing, Data Pipeline, Stakeholder \& Incident Management.
+
+    \end{onecolentry}
+
+
+
+    
+    \section{Experience}
+
+
+
+        
+        \begin{twocolentry}{
+            Aug 2024 – Present
+        }
+            \textbf{Senior Data Scientist}, Jet2.com and jet2holidays\end{twocolentry}
+
+        \vspace{0.10 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Developed an A/B testing framework to evaluate a GenAI-based dynamic flight pricing model, enabling data-driven measurement of revenue impact and pricing elasticity, and improved decision-making by providing statistically robust insights for model adoption and scalability. Validated model uplift to 1\% in revenue per seat.
+                \item Designed a margin differentiation to separate flight-only and holiday package impacts, feeding it into a GenAI pricing engine to improve flight seat price optimization. \end{highlights} \end{onecolentry}
+
+
+        \vspace{0.2 cm}
+
+        \begin{twocolentry}{
+            Dec 2022 – Aug 2024
+        }
+            \textbf{Data Scientist}, Axis Bank\end{twocolentry}
+
+        \vspace{0.10 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item 
+Designed and implemented a comprehensive credit card profit score (CCPS) framework utilising big data tools i.e. PySpark, Hive, Hadoop. This helped improve actionable areas for customer credit card spending and facilitating data-driven customer segmentation and target strategies. 
+                \item 
+Developed B-score scorecard model for revolver customer segment and created logic to allocate revenue and cost components to all credit card customers, resulted in enhanced financial visibility and enabled strategic decision making process.
+                \item 
+                
+Developed wheels’ valuation (auto loan) model using vintage data for recent quarter, QoQ and YoY using discounted cash flow method with time series forecasting (forecasted NPA’s and prepayment) to get the lifetime value of the sourcing.
+
+
+
+            \end{highlights}
+        \end{onecolentry}
+
+        \vspace{0.2 cm}
+        \begin{twocolentry}{
+            Jun 2019 – Nov 2022
+        }
+            \textbf{Associate Data Scientist}, Ecolab\end{twocolentry}
+
+        \vspace{0.10 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item 
+Designed and developed machine learning model to predict remaining useful life of the industrial RO membrane, solution integrated with digital platform generating annual revenue of USD 2.2M.
+                \item 
+Developed Legionella (bacteria) growth risk predictive model for cooling applications using LIMS data, E-data, sensor data \& weather data, helped generate revenue of USD 14M.
+                            
+
+                \item 
+Created robust processes to monitor digital and cloud platforms incl. data flow through azure service bus, azure web jobs and functions, adf pipelines, exception monitoring \& database utilisation.
+                                \item 
+Created \& deployed customised asset performance \& water consumption reports for hospitality \& healthcare sectors.
+            \end{highlights}
+        \end{onecolentry}
+
+        \vspace{0.2 cm}
+        \begin{twocolentry}{
+            Oct 2017 – Oct 2028
+        }
+            \textbf{Budget Controlling, Analytics Apprentice Trainee}, Volkswagen India\end{twocolentry}
+
+        \vspace{0.10 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item 
+Developed power BI dashboard of packaging cost for PCB (parts \& component business) by completing physical, system mapping \& CBM analysis at kit level, this served to prepare outbound logistic budget, checklist purpose and material write-off.
+                \item 
+Created costing model for Jigs \& fixtures, VW PT (Production Technique) business using cost-plus pricing method, helped reduce irregularity in final shippable product.
+                                \item 
+Accurate forecasting of future costs after discussion with CC to anticipate any cost overrun / saving.
+                \item 
+Created Power BI dashboard to fetch c-price of part i.e. inbound cost incl. material cost, packaging cost, freight cost, custom and antidumping duties.
+
+            \end{highlights}
+        \end{onecolentry}
+
+
+
+    \section{Education}
+
+
+
+        
+        \begin{twocolentry}{
+            Jul 2013 – May 2017
+        }
+            \textbf{Savitribai Phule Pune University}, Bachelor's in Chemical Engineering\end{twocolentry}
+
+        % \vspace{0.10 cm}
+        % \begin{onecolentry}
+        %     \begin{highlights}
+        %         \item GPA: 3.9/4.0 (\href{https://example.com}{a link to somewhere})
+        %         \item \textbf{Coursework:} Computer Architecture, Comparison of Learning Algorithms, Computational Theory
+        %     \end{highlights}
+        % \end{onecolentry}
+
+    
+    % \section{Publications}
+
+
+
+        
+    %     \begin{samepage}
+    %         \begin{twocolentry}{
+    %             Jan 2004
+    %         }
+    %             \textbf{3D Finite Element Analysis of No-Insulation Coils}
+    %         \end{twocolentry}
+
+    %         \vspace{0.10 cm}
+            
+    %         \begin{onecolentry}
+    %             \mbox{Frodo Baggins}, \mbox{\textbf{\textit{John Doe}}}, \mbox{Samwise Gamgee}
+
+    %             \vspace{0.10 cm}
+                
+    %     \href{https://doi.org/10.1109/TASC.2023.3340648}{10.1109/TASC.2023.3340648}
+    %     \end{onecolentry}
+    %     \end{samepage}
+
+
+    
+    % \section{Projects}
+
+
+
+        
+    %     \begin{twocolentry}{
+    %         \href{https://github.com/sinaatalay/rendercv}{github.com/name/repo}
+    %     }
+    %         \textbf{Multi-User Drawing Tool}\end{twocolentry}
+
+    %     \vspace{0.10 cm}
+    %     \begin{onecolentry}
+    %         \begin{highlights}
+    %             \item Developed an electronic classroom where multiple users can simultaneously view and draw on a "chalkboard" with each person's edits synchronized
+    %             \item Tools Used: C++, MFC
+    %         \end{highlights}
+    %     \end{onecolentry}
+
+
+    %     \vspace{0.2 cm}
+
+    %     \begin{twocolentry}{
+    %         \href{https://github.com/sinaatalay/rendercv}{github.com/name/repo}
+    %     }
+    %         \textbf{Synchronized Desktop Calendar}\end{twocolentry}
+
+    %     \vspace{0.10 cm}
+    %     \begin{onecolentry}
+    %         \begin{highlights}
+    %             \item Developed a desktop calendar with globally shared and synchronized calendars, allowing users to schedule meetings with other users
+    %             \item Tools Used: C\#, .NET, SQL, XML
+    %         \end{highlights}
+    %     \end{onecolentry}
+
+
+    %     \vspace{0.2 cm}
+
+    %     \begin{twocolentry}{
+    %         2002
+    %     }
+    %         \textbf{Custom Operating System}\end{twocolentry}
+
+    %     \vspace{0.10 cm}
+    %     \begin{onecolentry}
+    %         \begin{highlights}
+    %             \item Built a UNIX-style OS with a scheduler, file system, text editor, and calculator
+    %             \item Tools Used: C
+    %         \end{highlights}
+    %     \end{onecolentry}
+
+
+
+    
+    % \section{Technologies}
+
+
+
+        
+    %     \begin{onecolentry}
+    %         \textbf{Languages:} C++, C, Java, Objective-C, C\#, SQL, JavaScript
+    %     \end{onecolentry}
+
+    %     \vspace{0.2 cm}
+
+    %     \begin{onecolentry}
+    %         \textbf{Technologies:} .NET, Microsoft SQL Server, XCode, Interface Builder
+    %     \end{onecolentry}
+
+
+    \section{\textbf{Accolades}}
+
+
+
+        
+        % \begin{twocolentry}{
+        %     Aug 2024 – Present
+        % }
+        %     \textbf{Senior Data Scientist}, Jet2.com and jet2holidays\end{twocolentry}
+
+        % \vspace{0.10 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item 
+Recognised by President for CCPS Framework Implementation, 2023.
+                \item Power of One, Group Award 2022.
+                                \item 
+
+R\&R H2, Game Changer Award 2020.
+                \item 
+LOCI iOwn, Ownership Award 2020. 
+            \end{highlights}
+        \end{onecolentry}
+
+    \section{\textbf{\textbf{Certifications}}}
+
+
+
+        
+        % \begin{twocolentry}{
+        %     Aug 2024 – Present
+        % }
+        %     \textbf{Senior Data Scientist}, Jet2.com and jet2holidays\end{twocolentry}
+
+        % \vspace{0.10 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Machine Learning Specialisation by Stanford University.
+                \item IBM Certified Data Architect - Big Data.
+                                \item 
+Microsoft Certified: Azure Data Scientist Associate. 
+
+                \item 
+
+Microsoft Certified: Azure AI Fundamentals. 
+
+                \item 
+
+
+Microsoft Certified: Azure Data Fundamentals. 
+
+
+                \item 
+
+
+Microsoft Certified: Azure Fundamentals. 
+
+
+            \end{highlights}
+        \end{onecolentry}
+
+
+
+        % \vspace{0.2 cm}
+
+
+    
+
+\end{document}
